@@ -12,9 +12,10 @@ Live at **https://prinshusomay.github.io**
 | `assets/site.css` | All styling, including the Paper and Ink themes |
 | `assets/site.js` | Interactions: live site checks, live previews, GitHub feed, rupee units, theme, copy email |
 | `assets/shots/` | Screenshots of each live project (1280 × 800, WebP) |
-| `assets/fonts/` | Self-hosted Libre Caslon and Libre Franklin |
+| `assets/fonts/` | Self-hosted Libre Caslon, Libre Franklin and JetBrains Mono |
 | `assets/Prinshu-Somay-CV.pdf` | The CV linked from the page |
-| `assets/og.png` | Preview image shown when the link is shared on LinkedIn or WhatsApp |
+| `assets/social/` | Showcase images: the link preview for the site and the media on LinkedIn |
+| `preview/` | Small pages that give each showcase image its own link, then open the matching part of the site |
 
 ## What's interactive
 
