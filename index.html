@@ -20,12 +20,12 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <meta name="theme-color" content="#FCFCFA" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0F141C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#070B14">
 
-  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}</script>
+  <script>(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem('theme');}catch(e){}if(t==='dark')t='midnight';if(t==='light')t='paper';if(t!=='midnight'&&t!=='aurora'&&t!=='paper')t='midnight';d.dataset.theme=t;d.classList.add('js-reveal','js-split');setTimeout(function(){if(!window.__siteReady)d.classList.remove('js-reveal','js-split');},3000);})();</script>
   <link rel="preload" href="assets/fonts/libre-caslon-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/libre-franklin-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://api.github.com" crossorigin>
   <link rel="stylesheet" href="assets/site.css">
   <script src="assets/site.js" defer></script>
@@ -70,25 +70,66 @@
       <a class="monogram" href="#top" aria-label="Prinshu Somay, back to top">PS</a>
       <div class="topbar-actions">
         <a class="topbar-link" href="#work">Work</a>
+        <a class="topbar-link" href="#github">GitHub</a>
         <a class="topbar-link" href="#contact">Contact</a>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
-          <span class="theme-swatch" aria-hidden="true"></span><span data-theme-label>Ink</span>
-        </button>
+        <div class="themes" role="radiogroup" aria-label="Colour theme">
+          <button type="button" role="radio" class="swatch swatch--midnight" data-set-theme="midnight" aria-checked="true" title="Midnight"><span class="sr-only">Midnight</span></button>
+          <button type="button" role="radio" class="swatch swatch--aurora" data-set-theme="aurora" aria-checked="false" title="Aurora"><span class="sr-only">Aurora</span></button>
+          <button type="button" role="radio" class="swatch swatch--paper" data-set-theme="paper" aria-checked="false" title="Paper"><span class="sr-only">Paper</span></button>
+        </div>
       </div>
     </div>
 
-    <header class="cover" id="top">
-      <h1 class="name"><span class="name-word"><span>Prinshu</span></span> <span class="name-word"><span>Somay</span></span></h1>
-      <p class="standing">Bachelor of Management Studies, IIM Sirmaur, 2025 to 2029</p>
+    <header class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="dots"></div>
+        <div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+        <canvas class="orbit" data-orbit></canvas>
+        <div class="cursor-glow" data-cursor-glow></div>
+      </div>
 
-      <p class="statement">I&rsquo;m working toward investment banking and private equity, and I learn finance by building from primary documents. My latest project turns Reliance Jio&rsquo;s draft red herring prospectus into an interactive research terminal.</p>
+      <div class="hero-inner">
+        <p class="standing" data-hero-in style="--d: 0">Bachelor of Management Studies, IIM Sirmaur, 2025 to 2029</p>
+        <h1 class="name" data-split aria-label="Prinshu Somay"><span class="name-word">Prinshu</span> <span class="name-word">Somay</span></h1>
+        <p class="tagline" data-hero-in style="--d: 1">Learning finance by building from primary documents.</p>
 
-      <ul class="profile-links">
-        <li><a href="https://www.linkedin.com/in/prinshusomay" rel="me">LinkedIn</a></li>
-        <li><a href="https://github.com/prinshusomay" rel="me">GitHub</a></li>
-        <li><a href="mailto:prinshusomay21@gmail.com">prinshusomay21@gmail.com</a></li>
-        <li><a href="assets/Prinshu-Somay-CV.pdf" download>CV (PDF)</a></li>
+        <div class="prompt" data-spotlight data-hero-in style="--d: 2">
+          <p class="prompt-line">
+            <span class="prompt-mark" aria-hidden="true">&gt;</span>
+            <span class="typer" data-typer aria-hidden="true">Building a research terminal from Reliance Jio&rsquo;s draft red herring prospectus</span><span class="caret" aria-hidden="true"></span>
+            <span class="sr-only">Building a research terminal from Reliance Jio&rsquo;s draft red herring prospectus; modelling DCF, comparables, LBO and M&amp;A; 100 percentile in Fundamentals of Mathematics.</span>
+          </p>
+          <div class="prompt-bar">
+            <ul class="chips">
+              <li><a class="chip" href="https://www.linkedin.com/in/prinshusomay" rel="me">LinkedIn</a></li>
+              <li><a class="chip" href="https://github.com/prinshusomay" rel="me">GitHub</a></li>
+              <li><a class="chip" href="mailto:prinshusomay21@gmail.com">Email</a></li>
+              <li><a class="chip" href="assets/Prinshu-Somay-CV.pdf" download>CV</a></li>
+            </ul>
+            <a class="prompt-go" href="#work" aria-label="Go to selected work">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v15m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ticker" role="region" aria-label="Highlights">
+      <ul class="ticker-track">
+        <li><span>Fundamentals of Mathematics</span><b>100 pctl</b><em class="up">&#9650;</em></li>
+        <li><span>Probability &amp; Statistics</span><b>97.54 pctl</b><em class="up">&#9650;</em></li>
+        <li><span>Jio revenue from operations</span><b>&#8377;1,468,853 M</b><em class="up">+14.56%</em></li>
+        <li><span>Jio EBITDA margin</span><b>51.91%</b></li>
+        <li><span>Jio profit after tax</span><b>&#8377;300,527 M</b><em class="up">+15.05%</em></li>
+        <li><span>CHS (BHU) entrance, PCB</span><b>AIR 343</b></li>
+        <li><span>Titan quarters analysed</span><b>60+</b></li>
+        <li><span>Modelling program</span><b>300+ hrs</b></li>
+        <li><span>Live projects</span><b>3</b></li>
       </ul>
+    </div>
+
+    <section class="cover" aria-label="At a glance">
+      <p class="statement">I&rsquo;m working toward investment banking and private equity, and I learn finance by building from primary documents. My latest project turns Reliance Jio&rsquo;s draft red herring prospectus into an interactive research terminal.</p>
 
       <div class="cover-grid">
         <dl class="particulars">
@@ -123,7 +164,7 @@
           </ol>
         </nav>
       </div>
-    </header>
+    </section>
 
     <main>
 
@@ -165,7 +206,7 @@
 
         <!-- Featured case -->
         <article id="case-jio" class="case case--feature" aria-labelledby="case-jio-h">
-          <div class="frame" data-frame="https://jio-ipo.vercel.app/" data-showing="shot">
+          <div class="frame" data-spotlight data-tilt data-frame="https://jio-ipo.vercel.app/" data-showing="shot">
             <div class="frame-bar">
               <span class="frame-dots" aria-hidden="true"></span>
               <span class="frame-url">jio-ipo.vercel.app</span>
@@ -190,7 +231,7 @@
             </p>
           </div>
 
-          <div class="figures-block">
+          <div class="figures-block" data-spotlight>
             <div class="figures-head">
               <p class="figures-caption" id="fig-cap">Headline figures as shown on the dashboard</p>
               <div class="unit-toggle" role="group" aria-label="Show rupee amounts in">
@@ -213,7 +254,7 @@
 
         <div class="pair">
           <article id="case-campus" class="case" aria-labelledby="case-campus-h">
-            <div class="frame" data-frame="https://complaint-system-tau.vercel.app/" data-showing="shot">
+            <div class="frame" data-spotlight data-tilt data-frame="https://complaint-system-tau.vercel.app/" data-showing="shot">
               <div class="frame-bar">
                 <span class="frame-dots" aria-hidden="true"></span>
                 <span class="frame-url">complaint-system-tau.vercel.app</span>
@@ -238,7 +279,7 @@
           </article>
 
           <article id="case-portal" class="case" aria-labelledby="case-portal-h">
-            <div class="frame" data-frame="https://project-d3z01.vercel.app/" data-showing="shot">
+            <div class="frame" data-spotlight data-tilt data-frame="https://project-d3z01.vercel.app/" data-showing="shot">
               <div class="frame-bar">
                 <span class="frame-dots" aria-hidden="true"></span>
                 <span class="frame-url">project-d3z01.vercel.app</span>
@@ -467,6 +508,10 @@
 
     <!-- VII. Contact, on ink -->
     <section id="contact" class="contact" aria-labelledby="contact-h">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="dots"></div>
+        <div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+      </div>
       <div class="contact-inner">
         <div class="section-head">
           <span class="numeral" aria-hidden="true">VII</span>
@@ -476,7 +521,7 @@
         <p class="contact-lead">Email is the quickest way to reach me.</p>
         <p class="contact-email"><a href="mailto:prinshusomay21@gmail.com">prinshusomay21@gmail.com</a></p>
         <div class="contact-actions">
-          <button type="button" class="button button--paper" data-copy="prinshusomay21@gmail.com"><span data-copy-label>Copy email address</span></button>
+          <button type="button" class="button button--copy" data-copy="prinshusomay21@gmail.com"><span data-copy-label>Copy email address</span></button>
           <a class="button button--line" href="mailto:prinshusomay21@gmail.com">Write an email</a>
           <a class="button button--line" href="assets/Prinshu-Somay-CV.pdf" download>Download CV</a>
         </div>

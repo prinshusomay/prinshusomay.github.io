@@ -23,7 +23,8 @@ Live at **https://prinshusomay.github.io**
 - **On GitHub, live:** repositories and the latest commit are read from the GitHub API on each visit.
 - **Rupee units:** the Jio figures switch between millions (as filed) and crores.
 - **Reading progress:** the red margin rule fills as you scroll, and its numerals jump between sections.
-- **Paper and Ink:** a light and a dark theme, remembered per visitor.
+- **Three colour themes:** Midnight (the Jio terminal's teal and blue, default), Aurora (violet) and Paper (light), remembered per visitor.
+- **Motion:** the name sets letter by letter, a prompt types what I'm working on, signal rings and satellites orbit the name (after the Jio terminal's tower) and follow the cursor, an aurora drifts behind the hero, a ticker runs headline numbers, headings reveal word by word, figures count up, and cards light up under the pointer. All of it stops for visitors who turn on reduced motion.
 
 The design direction was explored in Google Stitch; the page itself is hand-written HTML, CSS and JavaScript with no framework or build step.
 
