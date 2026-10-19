@@ -1,0 +1,556 @@
+/* Prinshu Somay — portfolio
+   Set in Libre Caslon (display, headings) and Libre Franklin (text):
+   the American financial-printing pairing, for a page modelled on an offer document cover. */
+
+@font-face {
+  font-family: "Caslon Display";
+  src: url("fonts/libre-caslon-display-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Caslon Text";
+  src: url("fonts/libre-caslon-text-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Caslon Text";
+  src: url("fonts/libre-caslon-text-latin-400-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Caslon Text";
+  src: url("fonts/libre-caslon-text-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Franklin";
+  src: url("fonts/libre-franklin-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Franklin";
+  src: url("fonts/libre-franklin-latin-wght-italic.woff2") format("woff2");
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+/* Rupee sign only, from the extended subset */
+@font-face {
+  font-family: "Franklin";
+  src: url("fonts/libre-franklin-latin-ext-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+  unicode-range: U+20B9;
+}
+
+:root {
+  --paper: #FCFCFA;
+  --paper-2: #F2F3EF;
+  --ink: #17202E;
+  --ink-2: #4A5363;
+  --ink-3: #6E7685;
+  --rule: #D9DCD5;
+  --rule-strong: #17202E;
+  --herring: #B4232A;
+
+  --serif-display: "Caslon Display", "Libre Caslon Display", Georgia, "Times New Roman", serif;
+  --serif: "Caslon Text", "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --sans: "Franklin", "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+
+  --gutter: clamp(20px, 5vw, 64px);
+  --legend-w: 0px;
+  --measure: 64ch;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;          /* 17px */
+  line-height: 1.6;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+a { color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: var(--rule); transition: text-decoration-color .15s ease; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--herring); outline-offset: 3px; border-radius: 2px; }
+
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+p, li, dd { margin: 0; text-wrap: pretty; }
+
+.skip {
+  position: absolute; left: 12px; top: -48px; z-index: 10;
+  background: var(--ink); color: var(--paper); padding: 8px 14px; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* ---------------------------------------------------------------------------
+   The red legend: the "red herring" printed down the margin of a draft
+   offer document. On wide screens it runs the full height of the window.
+--------------------------------------------------------------------------- */
+.legend {
+  margin: 0;
+  color: var(--herring);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  border-bottom: 1px solid var(--herring);
+  padding: 12px var(--gutter);
+}
+
+@media (min-width: 1100px) {
+  :root { --legend-w: 84px; }
+  .legend {
+    position: fixed; inset: 0 auto 0 0; width: var(--legend-w);
+    border-bottom: 0;
+    padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+  }
+  .legend::after {
+    content: ""; position: absolute; top: 0; bottom: 0; right: 0;
+    width: 1px; background: var(--herring);
+    transform-origin: top;
+  }
+  .legend span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* The one orchestrated moment: the margin rule is drawn, then the legend appears. */
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+  .legend::after { animation: draw-rule 900ms cubic-bezier(.65,0,.35,1) both; }
+  .legend span { animation: legend-in 600ms ease 750ms both; }
+}
+@keyframes draw-rule { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes legend-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------------------------------------------------------------------------
+   Page frame
+--------------------------------------------------------------------------- */
+.page {
+  margin-left: var(--legend-w);
+  padding: 0 var(--gutter);
+}
+.page > * { max-width: 1160px; margin-left: auto; margin-right: auto; }
+
+/* ---------------------------------------------------------------------------
+   Cover
+--------------------------------------------------------------------------- */
+.cover {
+  padding-top: clamp(56px, 11vh, 128px);
+  padding-bottom: clamp(48px, 8vh, 88px);
+  border-bottom: 3px double var(--rule-strong);
+}
+
+.name {
+  font-family: var(--serif-display);
+  font-size: clamp(3.25rem, 10.5vw, 9.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.012em;
+  text-transform: uppercase;
+  font-feature-settings: "liga" 1;
+  margin-left: -0.04em;           /* optical alignment of the P stem */
+}
+@media (max-width: 700px) {
+  .name { font-size: 17vw; line-height: 0.95; }
+}
+
+.standing {
+  margin-top: clamp(18px, 2.4vw, 28px);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  color: var(--ink-2);
+}
+
+.statement {
+  margin-top: clamp(28px, 4vw, 44px);
+  max-width: 34em;
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2.1vw, 1.625rem);
+  line-height: 1.45;
+}
+
+.profile-links {
+  list-style: none; margin: 28px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 6px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.profile-links a { text-decoration-color: var(--ink-3); }
+.profile-links a:hover { text-decoration-color: var(--herring); }
+
+.cover-grid {
+  margin-top: clamp(40px, 6vw, 64px);
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 860px) {
+  .cover-grid { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+}
+
+/* The particulars box, after the boxed offer summary on a prospectus cover */
+.particulars {
+  margin: 0;
+  border: 1px solid var(--rule-strong);
+  display: grid;
+}
+.particulars > div {
+  display: grid;
+  grid-template-columns: 9.5em 1fr;
+  gap: 16px;
+  padding: 14px 18px;
+}
+.particulars > div + div { border-top: 1px solid var(--rule); }
+.particulars dt { font-family: var(--serif); font-style: italic; color: var(--ink-2); }
+.particulars dd { margin: 0; }
+@media (max-width: 520px) {
+  .particulars > div { grid-template-columns: 1fr; gap: 2px; }
+}
+
+.contents-title {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.contents ol { list-style: none; margin: 0; padding: 0; }
+.contents li { border-bottom: 1px solid var(--rule); }
+.contents a {
+  display: grid; grid-template-columns: 2.6em 1fr; align-items: baseline;
+  padding: 9px 0;
+  text-decoration: none;
+}
+.contents a:hover { color: var(--herring); }
+.contents .numeral { font-family: var(--serif); font-style: italic; color: var(--ink-3); }
+.contents a:hover .numeral { color: inherit; }
+
+/* ---------------------------------------------------------------------------
+   Sections
+--------------------------------------------------------------------------- */
+.section {
+  padding-top: clamp(64px, 9vw, 112px);
+}
+.section + .section { }
+
+.section-head {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  align-items: baseline;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+@media (min-width: 1100px) {
+  /* Section numerals hang in the margin, as in a numbered filing */
+  .section-head { grid-template-columns: 1fr; position: relative; }
+  .section-head .numeral { position: absolute; right: 100%; margin-right: 22px; top: 0.35em; }
+}
+.section-head .numeral {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--ink-3);
+}
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.375rem, 2vw, 1.625rem);
+  line-height: 1.25;
+}
+.meta {
+  margin-top: 4px;
+  color: var(--ink-3);
+  font-size: 0.9375rem;
+}
+.sub {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule-strong);
+  margin-bottom: 4px;
+}
+
+/* ---------------------------------------------------------------------------
+   Screenshots
+--------------------------------------------------------------------------- */
+.shot { margin: 0; }
+.shot a {
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--paper-2);
+  box-shadow:
+    0 0 0 1px rgba(23, 32, 46, 0.12),
+    0 2px 4px -2px rgba(23, 32, 46, 0.12),
+    0 22px 44px -28px rgba(23, 32, 46, 0.55);
+  aspect-ratio: 16 / 10;
+}
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.shot figcaption {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+/* Featured project
+   Phone: screenshot, text, figures, then the button.
+   Wide: screenshot with the figures under it on the left, text on the right. */
+.feature { display: flex; flex-direction: column; }
+.feature .shot { margin-bottom: 30px; }
+.feature-body { display: contents; }
+.feature .figures { order: 5; }
+.feature .actions { order: 6; }
+
+@media (min-width: 960px) {
+  .feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    grid-template-areas: "shot body" "figs body";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(36px, 4.5vw, 64px);
+    align-items: start;
+  }
+  .feature .shot { grid-area: shot; margin-bottom: 0; }
+  .feature-body { display: block; grid-area: body; }
+  .feature .figures { grid-area: figs; margin-top: 36px; }
+}
+.feature-body h3 { font-size: clamp(1.75rem, 3vw, 2.375rem); line-height: 1.1; }
+.feature-body > p:not(.meta):not(.actions) { margin-top: 16px; max-width: var(--measure); }
+.feature-body .meta { margin-top: 8px; }
+
+.figures {
+  width: 100%;
+  margin-top: 28px;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.figures caption {
+  text-align: left;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink-2);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.figures th, .figures td { padding: 8px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+.figures th { text-align: left; font-weight: 400; color: var(--ink-2); padding-right: 16px; }
+.figures td { text-align: right; font-weight: 600; white-space: nowrap; }
+
+.actions { margin-top: 28px; }
+.button {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  padding: 12px 20px;
+  border-radius: 2px;
+  transition: background-color .15s ease;
+}
+.button:hover { background: var(--herring); }
+
+/* Two smaller projects */
+.pair {
+  display: grid;
+  gap: 56px;
+  margin-top: clamp(64px, 8vw, 96px);
+  padding-top: clamp(40px, 5vw, 56px);
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 820px) {
+  .pair { grid-template-columns: 1fr 1fr; gap: clamp(36px, 4.5vw, 64px); }
+}
+.project h3 { margin-top: 26px; }
+.project > p:not(.meta) { margin-top: 12px; max-width: var(--measure); }
+.project-links {
+  list-style: none; margin: 16px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 4px 22px;
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+.project-links a { text-decoration-color: var(--ink-3); }
+.project-links a:hover { text-decoration-color: var(--herring); }
+
+/* ---------------------------------------------------------------------------
+   Research entries
+--------------------------------------------------------------------------- */
+.entries { display: grid; gap: 36px; }
+@media (min-width: 820px) {
+  .entries { grid-template-columns: 1fr 1fr; gap: clamp(36px, 4.5vw, 64px); }
+}
+.entry { border-top: 1px solid var(--rule-strong); padding-top: 18px; }
+.entry > p:not(.meta) { margin-top: 12px; max-width: var(--measure); }
+
+/* ---------------------------------------------------------------------------
+   Positions and results
+--------------------------------------------------------------------------- */
+.record-grid { display: grid; gap: 56px; }
+@media (min-width: 900px) {
+  .record-grid { grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 5vw, 72px); align-items: start; }
+}
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li {
+  display: grid;
+  grid-template-columns: 10.5em 1fr;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.timeline .when { font-size: 0.875rem; color: var(--ink-3); padding-top: 2px; }
+.timeline strong { font-weight: 600; }
+@media (max-width: 560px) {
+  .timeline li { grid-template-columns: 1fr; gap: 2px; }
+}
+
+table { border-collapse: collapse; width: 100%; }
+.league th, .league td,
+.courses th, .courses td,
+.education th, .education td {
+  text-align: left; vertical-align: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.league thead th, .courses thead th {
+  font-size: 0.8125rem; font-weight: 500; color: var(--ink-3);
+  padding-top: 4px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.league tbody th { font-weight: 400; padding-right: 16px; }
+.num { text-align: right !important; white-space: nowrap; }
+.league td.num {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.record-grid .sub + .league,
+.record-grid .sub + .plain { margin-top: 0; }
+.league + .sub { margin-top: 44px; }
+
+.plain { list-style: none; margin: 0; padding: 0; }
+.plain li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+
+/* ---------------------------------------------------------------------------
+   Training and skills
+--------------------------------------------------------------------------- */
+.training-grid { display: grid; gap: 48px; }
+@media (min-width: 980px) {
+  .training-grid { grid-template-columns: 1.6fr 1fr; gap: clamp(40px, 5vw, 72px); align-items: start; }
+}
+.courses tbody th { font-weight: 600; padding-right: 24px; }
+.courses td { padding-right: 20px; color: var(--ink-2); white-space: nowrap; }
+.courses td:last-child { padding-right: 0; }
+
+.col-label {
+  font-family: var(--sans);
+  font-size: 0.8125rem; font-weight: 500; color: var(--ink-3);
+  line-height: 1.6;
+  padding-top: 4px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.detail {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  max-width: 52ch;
+}
+
+.skills { margin: 0; }
+.skills > div { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.skills dt { font-family: var(--serif); font-style: italic; color: var(--ink-2); }
+.skills dd { margin: 2px 0 0; }
+
+@media (max-width: 640px) {
+  .courses thead { display: none; }
+  .courses tr { display: grid; grid-template-columns: 1fr auto; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  .courses tbody th { grid-column: 1 / -1; width: auto; border: 0; padding: 0 0 6px; }
+  .courses td { border: 0; padding: 0; font-size: 0.9375rem; }
+  .courses td:last-child { text-align: right; }
+  .courses tr:first-child { border-top: 1px solid var(--rule-strong); }
+}
+
+/* ---------------------------------------------------------------------------
+   Education
+--------------------------------------------------------------------------- */
+.education { max-width: 760px; }
+.education tr:first-child th, .education tr:first-child td { border-top: 1px solid var(--rule-strong); }
+.education th { font-weight: 600; }
+.education td.num { font-family: var(--serif); font-size: 1.125rem; font-variant-numeric: tabular-nums lining-nums; }
+
+/* ---------------------------------------------------------------------------
+   Contact
+--------------------------------------------------------------------------- */
+.contact-body { max-width: 860px; }
+.contact-lead { color: var(--ink-2); font-size: 1.0625rem; }
+.contact-email {
+  margin-top: 6px;
+  font-family: var(--serif);
+  font-size: clamp(1.625rem, 4.6vw, 3.25rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.contact-email a { text-decoration-thickness: 2px; text-underline-offset: 0.16em; text-decoration-color: var(--herring); }
+.contact-email a:hover { color: var(--herring); }
+
+.contact-list { margin: 36px 0 0; }
+.contact-list > div {
+  display: grid; grid-template-columns: 9.5em 1fr; gap: 16px;
+  padding: 11px 0; border-bottom: 1px solid var(--rule);
+}
+.contact-list > div:first-child { border-top: 1px solid var(--rule-strong); }
+.contact-list dt { font-family: var(--serif); font-style: italic; color: var(--ink-2); }
+.contact-list dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 520px) {
+  .contact-list > div { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   Footer
+--------------------------------------------------------------------------- */
+.footer {
+  margin-top: clamp(80px, 10vw, 128px);
+  padding: 22px 0 40px;
+  border-top: 3px double var(--rule-strong);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+/* ---------------------------------------------------------------------------
+   Print: the page should print as a clean two-page summary
+--------------------------------------------------------------------------- */
+@media print {
+  .legend { position: static; writing-mode: horizontal-tb; width: auto; }
+  .legend::after { display: none; }
+  .legend span { writing-mode: horizontal-tb; transform: none; }
+  .page { margin-left: 0; }
+  .shot a { box-shadow: none; border: 1px solid var(--rule); }
+  .skip, .to-top, .actions { display: none; }
+  a { text-decoration: none; }
+}
