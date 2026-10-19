@@ -9,16 +9,28 @@ Live at **https://prinshusomay.github.io**
 | Path | What it is |
 | --- | --- |
 | `index.html` | The whole page: projects, positions, results, training, education, contact |
-| `assets/site.css` | All styling |
+| `assets/site.css` | All styling, including the Paper and Ink themes |
+| `assets/site.js` | Interactions: live site checks, live previews, GitHub feed, rupee units, theme, copy email |
 | `assets/shots/` | Screenshots of each live project (1280 × 800, WebP) |
 | `assets/fonts/` | Self-hosted Libre Caslon and Libre Franklin |
 | `assets/Prinshu-Somay-CV.pdf` | The CV linked from the page |
 | `assets/og.png` | Preview image shown when the link is shared on LinkedIn or WhatsApp |
 
+## What's interactive
+
+- **Live status:** each project site is checked from the visitor's browser when the page loads, with its response time.
+- **Live previews:** every screenshot frame can switch to the real site, running inside the page.
+- **On GitHub, live:** repositories and the latest commit are read from the GitHub API on each visit.
+- **Rupee units:** the Jio figures switch between millions (as filed) and crores.
+- **Reading progress:** the red margin rule fills as you scroll, and its numerals jump between sections.
+- **Paper and Ink:** a light and a dark theme, remembered per visitor.
+
+The design direction was explored in Google Stitch; the page itself is hand-written HTML, CSS and JavaScript with no framework or build step.
+
 ## Updating it
 
 - **Swap the CV:** replace `assets/Prinshu-Somay-CV.pdf` with a file of the same name.
-- **Add a project:** copy one of the `<article class="project">` blocks in `index.html`, change the text and links, and put a 1280 × 800 screenshot in `assets/shots/`.
+- **Add a project:** copy one of the `<article class="case">` blocks in `index.html` and its row in the project index, change the text and links, and put a 1280 × 800 screenshot in `assets/shots/`.
 - **Change the date line:** search `index.html` for "October 2026".
 
 There is no build step. Commit to `main` and GitHub Pages publishes the change within a minute or two.

@@ -20,11 +20,15 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <meta name="theme-color" content="#FCFCFA">
+  <meta name="theme-color" content="#FCFCFA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F141C" media="(prefers-color-scheme: dark)">
 
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}</script>
   <link rel="preload" href="assets/fonts/libre-caslon-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/libre-franklin-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://api.github.com" crossorigin>
   <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
 
   <script type="application/ld+json">
   {
@@ -45,12 +49,36 @@
 <body>
   <a class="skip" href="#work">Skip to selected work</a>
 
-  <p class="legend" role="note"><span>This portfolio is in draft form and subject to completion. Information is current as of October 2026.</span></p>
+  <!-- The red margin: legend, reading progress and section index -->
+  <div class="margin">
+    <p class="legend" role="note"><span>This portfolio is a draft and subject to completion. Current as of October 2026.</span></p>
+    <div class="margin-rule" aria-hidden="true"><span></span></div>
+    <nav class="margin-index" aria-label="Sections">
+      <a href="#work" data-index-link><span class="tip">Selected work</span>I</a>
+      <a href="#github" data-index-link><span class="tip">On GitHub</span>II</a>
+      <a href="#research" data-index-link><span class="tip">Research</span>III</a>
+      <a href="#record" data-index-link><span class="tip">Positions and results</span>IV</a>
+      <a href="#training" data-index-link><span class="tip">Training and skills</span>V</a>
+      <a href="#education" data-index-link><span class="tip">Education</span>VI</a>
+      <a href="#contact" data-index-link><span class="tip">Contact</span>VII</a>
+    </nav>
+  </div>
 
   <div class="page">
 
+    <div class="topbar">
+      <a class="monogram" href="#top" aria-label="Prinshu Somay, back to top">PS</a>
+      <div class="topbar-actions">
+        <a class="topbar-link" href="#work">Work</a>
+        <a class="topbar-link" href="#contact">Contact</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+          <span class="theme-swatch" aria-hidden="true"></span><span data-theme-label>Ink</span>
+        </button>
+      </div>
+    </div>
+
     <header class="cover" id="top">
-      <h1 class="name">Prinshu Somay</h1>
+      <h1 class="name"><span class="name-word"><span>Prinshu</span></span> <span class="name-word"><span>Somay</span></span></h1>
       <p class="standing">Bachelor of Management Studies, IIM Sirmaur, 2025 to 2029</p>
 
       <p class="statement">I&rsquo;m working toward investment banking and private equity, and I learn finance by building from primary documents. My latest project turns Reliance Jio&rsquo;s draft red herring prospectus into an interactive research terminal.</p>
@@ -86,11 +114,12 @@
           <h2 class="contents-title">Contents</h2>
           <ol>
             <li><a href="#work"><span class="numeral">I</span>Selected work</a></li>
-            <li><a href="#research"><span class="numeral">II</span>Research and coursework</a></li>
-            <li><a href="#record"><span class="numeral">III</span>Positions and results</a></li>
-            <li><a href="#training"><span class="numeral">IV</span>Training and skills</a></li>
-            <li><a href="#education"><span class="numeral">V</span>Education</a></li>
-            <li><a href="#contact"><span class="numeral">VI</span>Contact</a></li>
+            <li><a href="#github"><span class="numeral">II</span>On GitHub, live</a></li>
+            <li><a href="#research"><span class="numeral">III</span>Research and coursework</a></li>
+            <li><a href="#record"><span class="numeral">IV</span>Positions and results</a></li>
+            <li><a href="#training"><span class="numeral">V</span>Training and skills</a></li>
+            <li><a href="#education"><span class="numeral">VI</span>Education</a></li>
+            <li><a href="#contact"><span class="numeral">VII</span>Contact</a></li>
           </ol>
         </nav>
       </div>
@@ -103,47 +132,102 @@
         <div class="section-head">
           <span class="numeral" aria-hidden="true">I</span>
           <h2 id="work-h">Selected work</h2>
+          <p class="section-note">Every site below is checked from your browser as the page loads. Switch any preview to the live site to use it here.</p>
         </div>
 
-        <article class="feature">
-          <figure class="shot shot--feature">
-            <a href="https://jio-ipo.vercel.app" aria-label="Open the Jio IPO Terminal live site">
-              <img src="assets/shots/jio-ipo.webp" width="1280" height="800" alt="Dashboard of the Jio IPO Terminal, showing revenue from operations, EBITDA, profit after tax, subscribers, monthly ARPU and spectrum holding in a dark interface with a sidebar of report sections.">
+        <ol class="project-index" data-project-index aria-label="Project index">
+          <li>
+            <a href="#case-jio" data-preview="assets/shots/jio-ipo.webp">
+              <span class="pi-name">Jio IPO Terminal</span>
+              <span class="pi-what">Research terminal built from a draft red herring prospectus</span>
+              <span class="pi-year">2026</span>
+              <span class="status" data-status="https://jio-ipo.vercel.app/"><i aria-hidden="true"></i><span data-status-text>Checking</span></span>
             </a>
-            <figcaption>jio-ipo.vercel.app</figcaption>
-          </figure>
+          </li>
+          <li>
+            <a href="#case-campus" data-preview="assets/shots/complaint-system.webp">
+              <span class="pi-name">Campus Infrastructure Management System</span>
+              <span class="pi-what">Complaint routing, tracking and an admin dashboard</span>
+              <span class="pi-year">2026</span>
+              <span class="status" data-status="https://complaint-system-tau.vercel.app/"><i aria-hidden="true"></i><span data-status-text>Checking</span></span>
+            </a>
+          </li>
+          <li>
+            <a href="#case-portal" data-preview="assets/shots/project-d3z01.webp">
+              <span class="pi-name">Infra-IT Complaint Portal</span>
+              <span class="pi-what">The Infrastructure IT Committee&rsquo;s official portal</span>
+              <span class="pi-year">2025&ndash;26</span>
+              <span class="status" data-status="https://project-d3z01.vercel.app/"><i aria-hidden="true"></i><span data-status-text>Checking</span></span>
+            </a>
+          </li>
+        </ol>
+        <div class="floater" data-floater aria-hidden="true"><img src="assets/shots/jio-ipo.webp" alt="" width="1280" height="800"></div>
 
-          <div class="feature-body">
-            <h3>Jio IPO Terminal</h3>
+        <!-- Featured case -->
+        <article id="case-jio" class="case case--feature" aria-labelledby="case-jio-h">
+          <div class="frame" data-frame="https://jio-ipo.vercel.app/" data-showing="shot">
+            <div class="frame-bar">
+              <span class="frame-dots" aria-hidden="true"></span>
+              <span class="frame-url">jio-ipo.vercel.app</span>
+              <div class="frame-tabs" role="tablist" aria-label="Jio IPO Terminal preview">
+                <button type="button" role="tab" data-view="shot" aria-selected="true">Screenshot</button>
+                <button type="button" role="tab" data-view="live" aria-selected="false" tabindex="-1">Live site</button>
+              </div>
+            </div>
+            <div class="frame-stage" data-stage>
+              <img src="assets/shots/jio-ipo.webp" width="1280" height="800" alt="Dashboard of the Jio IPO Terminal, showing revenue from operations, EBITDA, profit after tax, subscribers, monthly ARPU and spectrum holding in a dark interface with a sidebar of report sections.">
+              <span class="frame-loading" aria-hidden="true">Loading the live terminal</span>
+            </div>
+          </div>
+
+          <div class="case-body">
+            <h3 id="case-jio-h">Jio IPO Terminal</h3>
             <p class="meta">Independent project, Semester 3, 2026</p>
             <p>A research terminal built from Reliance Jio&rsquo;s draft red herring prospectus. The filing is reorganised into the views an analyst actually reaches for: financial statements and disclosures, SEBI ratios and KPIs, a forecast simulator, spectrum holdings, shareholding, board and key managerial personnel, risk factors and litigation. Figures switch between rupees and dollars and filter by FY24, FY25 and FY26.</p>
             <p>Underneath sits a 37-worksheet Excel data model, structured to load straight into Power BI. I developed it around a Finance Club workshop at IIM Sirmaur.</p>
-
             <p class="actions">
               <a class="button" href="https://jio-ipo.vercel.app">Open the live terminal</a>
             </p>
           </div>
 
-          <table class="figures">
-            <caption>Headline figures as shown on the dashboard</caption>
-            <tbody>
-              <tr><th scope="row">Revenue from operations</th><td>&#8377;1,468,853 M</td></tr>
-              <tr><th scope="row">EBITDA margin</th><td>51.9%</td></tr>
-              <tr><th scope="row">Subscribers</th><td>524.4 M</td></tr>
-              <tr><th scope="row">Spectrum holding</th><td>26,800.8 MHz in 22 circles</td></tr>
-            </tbody>
-          </table>
+          <div class="figures-block">
+            <div class="figures-head">
+              <p class="figures-caption" id="fig-cap">Headline figures as shown on the dashboard</p>
+              <div class="unit-toggle" role="group" aria-label="Show rupee amounts in">
+                <button type="button" data-unit="million" aria-pressed="true">Millions</button>
+                <button type="button" data-unit="crore" aria-pressed="false">Crores</button>
+              </div>
+            </div>
+            <table class="figures" aria-describedby="fig-cap">
+              <tbody>
+                <tr><th scope="row">Revenue from operations</th><td><span data-millions="1468853" data-rupee="true">&#8377;1,468,853 M</span><small>+14.56% YoY</small></td></tr>
+                <tr><th scope="row">EBITDA</th><td><span data-millions="762554" data-rupee="true">&#8377;762,554 M</span><small>51.91% margin</small></td></tr>
+                <tr><th scope="row">Profit after tax</th><td><span data-millions="300527" data-rupee="true">&#8377;300,527 M</span><small>+15.05% YoY</small></td></tr>
+                <tr><th scope="row">Subscribers</th><td><span data-millions="524.4">524.4 M</span><small>Market leader</small></td></tr>
+                <tr><th scope="row">Monthly ARPU</th><td><span>&#8377;181.7</span><small>+5.2% QoQ</small></td></tr>
+                <tr><th scope="row">Spectrum holding</th><td><span>26,800.8 MHz</span><small>22 circles</small></td></tr>
+              </tbody>
+            </table>
+          </div>
         </article>
 
         <div class="pair">
-          <article class="project">
-            <figure class="shot">
-              <a href="https://complaint-system-tau.vercel.app" aria-label="Open the Campus Infrastructure Management System live site">
+          <article id="case-campus" class="case" aria-labelledby="case-campus-h">
+            <div class="frame" data-frame="https://complaint-system-tau.vercel.app/" data-showing="shot">
+              <div class="frame-bar">
+                <span class="frame-dots" aria-hidden="true"></span>
+                <span class="frame-url">complaint-system-tau.vercel.app</span>
+                <div class="frame-tabs" role="tablist" aria-label="Campus Infrastructure Management System preview">
+                  <button type="button" role="tab" data-view="shot" aria-selected="true">Screenshot</button>
+                  <button type="button" role="tab" data-view="live" aria-selected="false" tabindex="-1">Live site</button>
+                </div>
+              </div>
+              <div class="frame-stage" data-stage>
                 <img src="assets/shots/complaint-system.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Landing page of the Campus Infrastructure Management System for IIM Sirmaur, with buttons to report an issue or track a complaint ID.">
-              </a>
-              <figcaption>complaint-system-tau.vercel.app</figcaption>
-            </figure>
-            <h3>Campus Infrastructure Management System</h3>
+                <span class="frame-loading" aria-hidden="true">Loading the live site</span>
+              </div>
+            </div>
+            <h3 id="case-campus-h">Campus Infrastructure Management System</h3>
             <p class="meta">IIM Sirmaur, 2026</p>
             <p>The committee&rsquo;s website, grown into a full complaint management system. Each report is routed to the right Infra-IT sub-department, anyone can follow its status with a complaint ID, and an admin dashboard shows where equipment keeps failing so staff can be allocated accordingly.</p>
             <ul class="project-links">
@@ -153,14 +237,22 @@
             </ul>
           </article>
 
-          <article class="project">
-            <figure class="shot">
-              <a href="https://project-d3z01.vercel.app" aria-label="Open the Infra-IT Complaint Portal live site">
+          <article id="case-portal" class="case" aria-labelledby="case-portal-h">
+            <div class="frame" data-frame="https://project-d3z01.vercel.app/" data-showing="shot">
+              <div class="frame-bar">
+                <span class="frame-dots" aria-hidden="true"></span>
+                <span class="frame-url">project-d3z01.vercel.app</span>
+                <div class="frame-tabs" role="tablist" aria-label="Infra-IT Complaint Portal preview">
+                  <button type="button" role="tab" data-view="shot" aria-selected="true">Screenshot</button>
+                  <button type="button" role="tab" data-view="live" aria-selected="false" tabindex="-1">Live site</button>
+                </div>
+              </div>
+              <div class="frame-stage" data-stage>
                 <img src="assets/shots/project-d3z01.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Home page of the Infra-IT Complaint Portal for IIM Sirmaur, with a maintenance notice, buttons to submit an issue or track status, and performance figures.">
-              </a>
-              <figcaption>project-d3z01.vercel.app</figcaption>
-            </figure>
-            <h3>Infra-IT Complaint Portal</h3>
+                <span class="frame-loading" aria-hidden="true">Loading the live site</span>
+              </div>
+            </div>
+            <h3 id="case-portal-h">Infra-IT Complaint Portal</h3>
             <p class="meta">Infrastructure IT Committee, IIM Sirmaur</p>
             <p>The official portal I designed and built for the institute&rsquo;s Infrastructure IT Committee. Students and staff report plumbing, network and electrical faults with a priority level, including an emergency flag, track them by ID, and check a self-help FAQ and live maintenance notices before filing.</p>
             <ul class="project-links">
@@ -170,10 +262,40 @@
         </div>
       </section>
 
-      <!-- II. Research and coursework -->
-      <section id="research" class="section" aria-labelledby="research-h">
+      <!-- II. On GitHub -->
+      <section id="github" class="section" aria-labelledby="github-h">
         <div class="section-head">
           <span class="numeral" aria-hidden="true">II</span>
+          <h2 id="github-h">On GitHub, live</h2>
+          <p class="section-note">Read from <a href="https://github.com/prinshusomay">github.com/prinshusomay</a> each time you open this page, so it is never out of date.</p>
+        </div>
+
+        <div class="github" data-github="prinshusomay" data-state="static">
+          <ul class="repos" data-github-list>
+            <li class="repo">
+              <a class="repo-name" href="https://github.com/prinshusomay/prinshusomay.github.io">prinshusomay.github.io</a>
+              <p class="repo-desc">This portfolio. Plain HTML, CSS and JavaScript on GitHub Pages, with live checks of every project.</p>
+              <p class="repo-meta"><span class="lang"><i style="background:#E34C26"></i>HTML</span></p>
+            </li>
+            <li class="repo">
+              <a class="repo-name" href="https://github.com/prinshusomay/IIM-Sirmaur-Infra-IT">IIM-Sirmaur-Infra-IT</a>
+              <p class="repo-desc">The campus management tool rebuilt in React, TypeScript and Firebase, with separate student, staff and admin dashboards.</p>
+              <p class="repo-meta"><span class="lang"><i style="background:#3178C6"></i>TypeScript</span></p>
+            </li>
+            <li class="repo">
+              <a class="repo-name" href="https://github.com/prinshusomay/complaint-system">complaint-system</a>
+              <p class="repo-desc">Complaint management system for the Infrastructure IT Committee: routing, tracking by ID and an admin dashboard.</p>
+              <p class="repo-meta"><span class="lang"><i style="background:#E34C26"></i>HTML</span><a class="repo-live" href="https://complaint-system-tau.vercel.app">Live site</a></p>
+            </li>
+          </ul>
+          <p class="gh-meta" data-github-meta aria-live="polite"></p>
+        </div>
+      </section>
+
+      <!-- III. Research and coursework -->
+      <section id="research" class="section" aria-labelledby="research-h">
+        <div class="section-head">
+          <span class="numeral" aria-hidden="true">III</span>
           <h2 id="research-h">Research and coursework</h2>
         </div>
 
@@ -191,10 +313,10 @@
         </div>
       </section>
 
-      <!-- III. Positions and results -->
+      <!-- IV. Positions and results -->
       <section id="record" class="section" aria-labelledby="record-h">
         <div class="section-head">
-          <span class="numeral" aria-hidden="true">III</span>
+          <span class="numeral" aria-hidden="true">IV</span>
           <h2 id="record-h">Positions and results</h2>
         </div>
 
@@ -227,13 +349,18 @@
 
           <div>
             <h3 class="sub">Results</h3>
+            <ul class="percentiles">
+              <li>
+                <div class="pct-head"><span>Fundamentals of Mathematics, 2025</span><strong>100 percentile</strong></div>
+                <div class="pct-bar" data-bar style="--v: 100" role="img" aria-label="100th percentile of the cohort"><span></span></div>
+              </li>
+              <li>
+                <div class="pct-head"><span>Probability &amp; Statistics, 2026</span><strong>97.54 percentile</strong></div>
+                <div class="pct-bar" data-bar style="--v: 97.54" role="img" aria-label="97.54th percentile of the cohort"><span></span></div>
+              </li>
+            </ul>
             <table class="league">
-              <thead>
-                <tr><th scope="col">Course or exam</th><th scope="col" class="num">Result</th></tr>
-              </thead>
               <tbody>
-                <tr><th scope="row">Fundamentals of Mathematics, IIM Sirmaur, 2025</th><td class="num">100 percentile</td></tr>
-                <tr><th scope="row">Probability &amp; Statistics, IIM Sirmaur, 2026</th><td class="num">97.54 percentile</td></tr>
                 <tr><th scope="row">CHS (BHU) entrance, PCB</th><td class="num">All India Rank 343</td></tr>
                 <tr><th scope="row">CHS (BHU) entrance, PCM</th><td class="num">All India Rank 1,151</td></tr>
               </tbody>
@@ -251,10 +378,10 @@
         </div>
       </section>
 
-      <!-- IV. Training and skills -->
+      <!-- V. Training and skills -->
       <section id="training" class="section" aria-labelledby="training-h">
         <div class="section-head">
-          <span class="numeral" aria-hidden="true">IV</span>
+          <span class="numeral" aria-hidden="true">V</span>
           <h2 id="training-h">Training and skills</h2>
         </div>
 
@@ -267,54 +394,54 @@
               <tr>
                 <th scope="row">Financial Modeling &amp; Valuation with AI<span class="detail">Advanced Excel, financial statements, ratio and KPI analysis, DCF and comparable valuation, LBO, M&amp;A and project finance modelling, Power BI. 300+ hours, 12 modelling projects and a two-month virtual internship.</span></th>
                 <td>IIM SKILLS</td>
-                <td>In progress</td>
+                <td><span class="pill pill--progress">In progress</span></td>
               </tr>
               <tr>
                 <th scope="row">Financial Statements<span class="detail">Reading real financial statements and applying core finance concepts to listed companies.</span></th>
                 <td>MBA Circle</td>
-                <td>Completed Jul 2026</td>
+                <td><span class="pill pill--done">Completed Jul 2026</span></td>
               </tr>
               <tr>
                 <th scope="row">Mastering Case Competitions<span class="detail">Case structuring, primary research, clustering and perceptual mapping, conjoint and pricing analysis, feasibility analysis.</span></th>
                 <td>MBA Circle</td>
-                <td>In progress</td>
+                <td><span class="pill pill--progress">In progress</span></td>
               </tr>
               <tr>
                 <th scope="row">NISM certification in financial markets</th>
                 <td>NISM</td>
-                <td>Preparing</td>
+                <td><span class="pill">Preparing</span></td>
               </tr>
             </tbody>
           </table>
 
           <div class="skills-col">
-          <h3 class="col-label">Skills</h3>
-          <dl class="skills">
-            <div>
-              <dt>Finance and analysis</dt>
-              <dd>Financial statement analysis, ratio and KPI analysis, regression analysis, valuation</dd>
-            </div>
-            <div>
-              <dt>Tools</dt>
-              <dd>Advanced Excel with VBA and the Data Analysis ToolPak, Power BI, PowerPoint</dd>
-            </div>
-            <div>
-              <dt>Building</dt>
-              <dd>HTML, Tailwind CSS, React, Firebase, deployment on Vercel</dd>
-            </div>
-            <div>
-              <dt>Working with people</dt>
-              <dd>Coordinating a cohort as subject representative, stakeholder communication with faculty, peer mentoring</dd>
-            </div>
-          </dl>
+            <h3 class="col-label">Skills</h3>
+            <dl class="skills">
+              <div>
+                <dt>Finance and analysis</dt>
+                <dd>Financial statement analysis, ratio and KPI analysis, regression analysis, valuation</dd>
+              </div>
+              <div>
+                <dt>Tools</dt>
+                <dd>Advanced Excel with VBA and the Data Analysis ToolPak, Power BI, PowerPoint</dd>
+              </div>
+              <div>
+                <dt>Building</dt>
+                <dd>HTML, Tailwind CSS, React, Firebase, deployment on Vercel</dd>
+              </div>
+              <div>
+                <dt>Working with people</dt>
+                <dd>Coordinating a cohort as subject representative, stakeholder communication with faculty, peer mentoring</dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
 
-      <!-- V. Education -->
+      <!-- VI. Education -->
       <section id="education" class="section" aria-labelledby="education-h">
         <div class="section-head">
-          <span class="numeral" aria-hidden="true">V</span>
+          <span class="numeral" aria-hidden="true">VI</span>
           <h2 id="education-h">Education</h2>
         </div>
 
@@ -336,32 +463,37 @@
         </table>
       </section>
 
-      <!-- VI. Contact -->
-      <section id="contact" class="section contact" aria-labelledby="contact-h">
+    </main>
+
+    <!-- VII. Contact, on ink -->
+    <section id="contact" class="contact" aria-labelledby="contact-h">
+      <div class="contact-inner">
         <div class="section-head">
-          <span class="numeral" aria-hidden="true">VI</span>
+          <span class="numeral" aria-hidden="true">VII</span>
           <h2 id="contact-h">Contact</h2>
         </div>
 
-        <div class="contact-body">
-          <p class="contact-lead">Email is the quickest way to reach me.</p>
-          <p class="contact-email"><a href="mailto:prinshusomay21@gmail.com">prinshusomay21@gmail.com</a></p>
-          <dl class="contact-list">
-            <div><dt>Institute email</dt><dd><a href="mailto:bms25101@iimsirmaur.ac.in">bms25101@iimsirmaur.ac.in</a></dd></div>
-            <div><dt>Phone</dt><dd><a href="tel:+918825354440">+91 88253 54440</a></dd></div>
-            <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/prinshusomay" rel="me">linkedin.com/in/prinshusomay</a></dd></div>
-            <div><dt>GitHub</dt><dd><a href="https://github.com/prinshusomay" rel="me">github.com/prinshusomay</a></dd></div>
-            <div><dt>CV</dt><dd><a href="assets/Prinshu-Somay-CV.pdf" download>Download PDF</a></dd></div>
-          </dl>
+        <p class="contact-lead">Email is the quickest way to reach me.</p>
+        <p class="contact-email"><a href="mailto:prinshusomay21@gmail.com">prinshusomay21@gmail.com</a></p>
+        <div class="contact-actions">
+          <button type="button" class="button button--paper" data-copy="prinshusomay21@gmail.com"><span data-copy-label>Copy email address</span></button>
+          <a class="button button--line" href="mailto:prinshusomay21@gmail.com">Write an email</a>
+          <a class="button button--line" href="assets/Prinshu-Somay-CV.pdf" download>Download CV</a>
         </div>
-      </section>
 
-    </main>
+        <dl class="contact-list">
+          <div><dt>Institute email</dt><dd><a href="mailto:bms25101@iimsirmaur.ac.in">bms25101@iimsirmaur.ac.in</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+918825354440">+91 88253 54440</a></dd></div>
+          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/prinshusomay" rel="me">linkedin.com/in/prinshusomay</a></dd></div>
+          <div><dt>GitHub</dt><dd><a href="https://github.com/prinshusomay" rel="me">github.com/prinshusomay</a></dd></div>
+        </dl>
 
-    <footer class="footer">
-      <p>&copy; 2026 Prinshu Somay. Last updated October 2026.</p>
-      <p><a href="#top" class="to-top">Back to top</a></p>
-    </footer>
+        <footer class="footer">
+          <p>&copy; 2026 Prinshu Somay. Last updated October 2026.</p>
+          <p><a href="#top">Back to top</a></p>
+        </footer>
+      </div>
+    </section>
 
   </div>
 </body>
