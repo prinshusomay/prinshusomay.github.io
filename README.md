@@ -39,6 +39,6 @@ There is no build step. Commit to `main` and GitHub Pages publishes the change w
 
 ## Projects linked from the site
 
-- Jio IPO Terminal: https://jio-ipo.vercel.app
-- Campus Infrastructure Management System: https://complaint-system-tau.vercel.app ([code](https://github.com/prinshusomay/complaint-system), [React and Firebase version](https://github.com/prinshusomay/IIM-Sirmaur-Infra-IT))
-- Infra-IT Complaint Portal: https://project-d3z01.vercel.app
+- Jio IPO Terminal: https://jio-ipo.vercel.app ([code](https://github.com/prinshusomay/jio-ipo-terminal))
+- Campus Infrastructure Management System: https://iims-cims.vercel.app ([code](https://github.com/prinshusomay/complaint-system), [React and Firebase version](https://github.com/prinshusomay/IIM-Sirmaur-Infra-IT))
+- Infra-IT Complaint Portal: https://iims-infra-portal.vercel.app
