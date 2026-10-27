@@ -34,7 +34,7 @@
     themeListeners.forEach(fn => fn(theme));
   };
   themeBtns.forEach((b, i) => {
-    b.addEventListener('click', () => { applyTheme(b.dataset.setTheme, true); store.set('theme', b.dataset.setTheme); });
+    b.addEventListener('click', () => { applyTheme(b.dataset.setTheme, true); store.set('theme-v2', b.dataset.setTheme); });
     b.addEventListener('keydown', e => {
       if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(e.key)) return;
       e.preventDefault();
