@@ -3,6 +3,7 @@
    JetBrains Mono only where the page behaves like a terminal (prompt, ticker).
    Themes: Midnight (default, the Jio terminal's teal and blue), Aurora (violet), Paper (light). */
 
+@font-face { font-family: "Tiro Devanagari"; src: url("fonts/tiro-devanagari-hindi-devanagari-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF; }
 @font-face { font-family: "Caslon Display"; src: url("fonts/libre-caslon-display-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Caslon Text"; src: url("fonts/libre-caslon-text-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Caslon Text"; src: url("fonts/libre-caslon-text-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
@@ -540,10 +541,17 @@ h3 { font-family: var(--serif); font-size: clamp(1.375rem, 2vw, 1.625rem); line-
 .case--feature .figures-block { order: 5; margin-top: 28px; }
 .case--feature .actions { order: 6; }
 @media (min-width: 960px) {
-  .case--feature { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); grid-template-areas: "frame body" "figs body"; grid-template-rows: auto 1fr; column-gap: clamp(36px, 4.5vw, 64px); align-items: start; }
+  .case--feature { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); grid-template-areas: "frame body" "figs figs"; grid-template-rows: auto auto; column-gap: clamp(36px, 4.5vw, 64px); align-items: start; }
   .case--feature .frame { grid-area: frame; margin-bottom: 0; }
-  .case-body { display: block; grid-area: body; position: sticky; top: 96px; }
-  .case--feature .figures-block { grid-area: figs; margin-top: 32px; }
+  .case-body { display: block; grid-area: body; align-self: center; }
+  .case--feature .figures-block { grid-area: figs; margin-top: 40px; padding-bottom: 6px; }
+  .case--feature .figures tbody { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .case--feature .figures tr { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 6px; padding: 18px 20px 16px; border-bottom: 1px solid var(--console-rule); }
+  .case--feature .figures tr:not(:nth-child(3n)) { border-right: 1px solid var(--console-rule); }
+  .case--feature .figures tr:nth-child(n+4) { border-bottom: 0; }
+  .case--feature .figures th, .case--feature .figures td { padding: 0; border: 0; text-align: left; }
+  .case--feature .figures td > span { font-size: 1.625rem; }
+  .case--feature .figures td small { margin-top: 4px; }
 }
 .case-body h3 { font-size: clamp(1.875rem, 3.2vw, 2.625rem); line-height: 1.05; }
 .case-body > p:not(.meta):not(.actions) { margin-top: 16px; max-width: var(--measure); color: var(--ink-2); }
@@ -627,7 +635,7 @@ h3 { font-family: var(--serif); font-size: clamp(1.375rem, 2vw, 1.625rem); line-
 
 .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
 .timeline::before { content: ""; position: absolute; left: 3px; top: 26px; bottom: 26px; width: 1px; background: linear-gradient(var(--accent), transparent); opacity: .5; }
-.timeline li { position: relative; display: grid; grid-template-columns: 10.5em 1fr; gap: 18px; padding: 16px 0 16px 22px; border-bottom: 1px solid var(--rule); }
+.timeline li { position: relative; display: grid; grid-template-columns: 8.5em 1fr; gap: 18px; padding: 16px 0 16px 22px; border-bottom: 1px solid var(--rule); }
 .timeline li::before { content: ""; position: absolute; left: 0; top: 24px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent); }
 .timeline .when { font-size: 0.875rem; color: var(--ink-3); padding-top: 2px; }
 .timeline strong { font-weight: 600; }
@@ -689,7 +697,7 @@ table { border-collapse: collapse; width: 100%; }
 /* ---------------------------------------------------------------------------
    Education
 --------------------------------------------------------------------------- */
-.education { max-width: 760px; }
+.education { width: 100%; }
 .education tr:first-child th, .education tr:first-child td { border-top: 1px solid var(--rule-strong); }
 .education th { font-weight: 600; }
 
@@ -751,3 +759,18 @@ table { border-collapse: collapse; width: 100%; }
 .frame-link:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
 a.frame-url { color: inherit; text-decoration: none; }
 a.frame-url:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Devanagari, for नेत्र */
+.deva { font-family: "Tiro Devanagari", "Noto Serif Devanagari", serif; font-style: normal; letter-spacing: 0; }
+
+/* Batch ranks */
+.league .rank-row td.num { white-space: nowrap; color: var(--ink-2); font-size: 1rem; }
+.rank { font-family: var(--serif); font-size: 1.75rem; color: var(--ink); margin-right: 4px; font-variant-numeric: lining-nums; }
+.rank sup { font-size: .5em; vertical-align: super; margin-left: 1px; }
+.league .rank-row th, .league .rank-row td { padding: 16px 0; }
+
+/* Lead research entry spans the row */
+@media (min-width: 820px) { .entry--lead { grid-column: 1 / -1; } }
+.entry strong { color: var(--ink); font-weight: 600; }
+.league { margin-bottom: 48px; }
+@media (min-width: 820px) { .entry--lead ~ .entry:last-child:nth-child(even) { grid-column: 1 / -1; } }
