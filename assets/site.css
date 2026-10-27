@@ -624,7 +624,7 @@ h3 { font-family: var(--serif); font-size: clamp(1.375rem, 2vw, 1.625rem); line-
 .entries { display: grid; gap: 20px; }
 @media (min-width: 820px) { .entries { grid-template-columns: 1fr 1fr; } }
 .entry { position: relative; border: 1px solid var(--card-border); border-radius: 14px; background: var(--card); padding: 24px 24px 26px 28px; overflow: hidden; }
-.entry::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(var(--herring), var(--accent)); }
+.entry::before { content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 2px; border-radius: 2px; background: linear-gradient(var(--herring), var(--accent)); transform-origin: top; transform: scaleY(var(--stripe, 1)); transition: transform 1.1s var(--ease) .2s; }
 .entry > p:not(.meta) { margin-top: 12px; max-width: var(--measure); color: var(--ink-2); }
 
 /* ---------------------------------------------------------------------------
@@ -774,3 +774,117 @@ a.frame-url:hover { text-decoration: underline; text-underline-offset: 3px; }
 .entry strong { color: var(--ink); font-weight: 600; }
 .league { margin-bottom: 48px; }
 @media (min-width: 820px) { .entry--lead ~ .entry:last-child:nth-child(even) { grid-column: 1 / -1; } }
+
+/* ---------------------------------------------------------------
+   Research cards: blueprint field, travelling rings, drawn motifs
+--------------------------------------------------------------- */
+.entries { position: relative; isolation: isolate; padding: 4px 0; }
+.entries::before {
+  content: ""; position: absolute; inset: -28px -24px; z-index: -1; pointer-events: none;
+  background-image:
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 22%, transparent) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask: radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 78%);
+          mask: radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 78%);
+  opacity: .55;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .entries::before { animation: field-drift 40s linear infinite; }
+}
+@keyframes field-drift { to { background-position: 22px 44px; } }
+
+.entry { transition: transform .5s var(--ease), box-shadow .5s ease, border-color .4s ease; box-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 4%, transparent), 0 18px 40px -32px var(--glow-2, rgba(0,0,0,.25)); }
+.entry:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 35%, var(--card-border)); box-shadow: 0 24px 50px -28px color-mix(in srgb, var(--accent) 45%, transparent); }
+.js-reveal .entry[data-reveal]:not(.is-in) { --stripe: 0; }
+
+/* corner registration marks */
+.entry > h3, .entry > .meta, .entry > p { position: relative; z-index: 2; }
+.entry-ring {
+  position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 1;
+  background: conic-gradient(from var(--angle), transparent 0 62%, var(--accent) 76%, var(--herring) 86%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: .35; transition: opacity .4s ease;
+}
+.entry-ring::before, .entry-ring::after { content: none; }
+.entry:hover .entry-ring, .entry--lead .entry-ring { opacity: .9; }
+@media (prefers-reduced-motion: no-preference) {
+  .entry-ring { animation: spin-border 9s linear infinite; }
+  .entry:nth-child(2) .entry-ring { animation-delay: -1.5s; animation-duration: 11s; }
+  .entry:nth-child(3) .entry-ring { animation-delay: -4s; animation-duration: 10s; }
+  .entry:nth-child(4) .entry-ring { animation-delay: -6s; animation-duration: 12s; }
+  .entry:nth-child(5) .entry-ring { animation-delay: -2.5s; animation-duration: 10.5s; }
+  .entry:nth-child(6) .entry-ring { animation-delay: -7s; animation-duration: 11.5s; }
+}
+
+.entry-eyebrow { position: relative; z-index: 2; display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font-family: var(--mono); font-size: .6875rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3, var(--ink-2)); }
+.entry-no { color: var(--herring); }
+.entry-eyebrow::after { content: ""; flex: 1; height: 1px; max-width: 120px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, transparent), transparent); transform-origin: left; transform: scaleX(var(--stripe, 1)); transition: transform 1.2s var(--ease) .35s; }
+.entry-tag { padding: 3px 9px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); color: var(--accent); letter-spacing: .1em; }
+
+/* motifs */
+.motif { position: absolute; z-index: 0; top: 18px; right: 18px; width: 120px; height: 80px; overflow: visible; color: var(--accent); fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; opacity: .5; transition: opacity .4s ease, transform .6s var(--ease); pointer-events: none; }
+.entry:hover .motif { opacity: .95; transform: translateY(-2px) scale(1.03); }
+.entry:not(.entry--lead) > h3 { padding-right: 112px; }
+@media (max-width: 520px) { .motif { width: 84px; height: 56px; top: 14px; right: 14px; opacity: .4; } .entry:not(.entry--lead) > h3 { padding-right: 76px; } }
+
+.motif .m-grid line, .motif .m-base { stroke: color-mix(in srgb, var(--ink) 18%, transparent); stroke-width: 1; stroke-dasharray: 2 4; }
+.motif [pathLength] { stroke-dasharray: 1; stroke-dashoffset: var(--draw, 0); transition: stroke-dashoffset 1.6s var(--ease) .3s; }
+.js-reveal .entry[data-reveal]:not(.is-in) .motif [pathLength] { --draw: 1; }
+
+/* 01 candles */
+.motif--candles { width: 240px; height: 140px; top: 50%; right: 32px; transform: translateY(-50%); opacity: .75; }
+.entry--lead:hover .motif--candles { transform: translateY(-50%) scale(1.02); }
+.m-candles g { color: var(--accent); }
+.m-candles g.dn { color: var(--herring); }
+.m-candles rect { fill: color-mix(in srgb, currentColor 22%, transparent); stroke: currentColor; }
+.m-candles g { transform-box: fill-box; transform-origin: 50% 100%; }
+.m-trend { stroke: var(--ink); stroke-width: 1.6; opacity: .7; }
+.m-target { stroke: var(--herring); stroke-dasharray: 5 5; stroke-width: 1.2; }
+.m-label { fill: var(--herring); stroke: none; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; }
+.entry--lead > h3, .entry--lead > .meta, .entry--lead > p { max-width: min(var(--measure), calc(100% - 290px)); }
+@media (max-width: 960px) {
+  .motif--candles { position: relative; top: auto; right: auto; transform: none; display: block; width: 100%; max-width: 320px; height: auto; margin: 22px 0 0; }
+  .entry--lead:hover .motif--candles { transform: none; }
+  .entry--lead > h3, .entry--lead > .meta, .entry--lead > p { max-width: var(--measure); }
+}
+
+/* 02 scatter */
+.m-dots circle { fill: currentColor; stroke: none; opacity: .75; }
+.m-line { stroke: var(--herring); stroke-width: 1.8; }
+/* 03 bars */
+.m-bars rect { fill: color-mix(in srgb, currentColor 26%, transparent); stroke: currentColor; transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(var(--h)); }
+.m-bars rect:nth-child(3) { color: var(--herring); }
+/* 04 network eye */
+.m-net line { stroke: color-mix(in srgb, currentColor 45%, transparent); stroke-dasharray: 3 3; }
+.m-nodes circle { fill: var(--card); }
+.m-eye { stroke-width: 1.8; }
+.m-pupil { fill: var(--herring); stroke: none; transform-box: fill-box; transform-origin: center; }
+/* 05 PLC */
+.m-runner { fill: var(--herring); stroke: none; offset-path: path("M4 72 C 20 72, 26 66, 34 52 S 48 16, 66 14 S 94 18, 116 46"); offset-distance: 62%; }
+/* 06 river */
+.m-waves path { stroke-width: 1.4; }
+.m-waves path:nth-child(2) { opacity: .65; }
+.m-waves path:nth-child(3) { opacity: .4; }
+.m-dune { fill: color-mix(in srgb, var(--herring) 18%, transparent); stroke: color-mix(in srgb, var(--herring) 60%, transparent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .m-candles g { animation: candle 3.6s var(--ease) infinite; animation-delay: calc(var(--i) * .18s); }
+  @keyframes candle { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.86); } }
+  .m-target { animation: dash-run 1.6s linear infinite; }
+  @keyframes dash-run { to { stroke-dashoffset: -20; } }
+  .m-dots circle { animation: dot-pop 4s ease-in-out infinite; animation-delay: calc(var(--i) * .22s); transform-box: fill-box; transform-origin: center; }
+  @keyframes dot-pop { 0%, 70%, 100% { transform: scale(1); opacity: .75; } 80% { transform: scale(1.7); opacity: 1; } }
+  .m-bars rect { animation: bar-breathe 3.2s var(--ease) infinite alternate; animation-delay: calc(var(--i) * .3s); }
+  @keyframes bar-breathe { from { transform: scaleY(calc(var(--h) * .72)); } to { transform: scaleY(var(--h)); } }
+  .m-nodes circle { animation: node-ping 3s ease-in-out infinite; animation-delay: calc(var(--i) * .75s); transform-box: fill-box; transform-origin: center; }
+  @keyframes node-ping { 0%, 60%, 100% { fill: var(--card); transform: scale(1); } 75% { fill: currentColor; transform: scale(1.5); } }
+  .m-net line { animation: dash-run 2.4s linear infinite; }
+  .m-pupil { animation: pupil 5s var(--ease) infinite; }
+  @keyframes pupil { 0%, 100% { transform: translateX(0) scale(1); } 25% { transform: translateX(-6px) scale(.9); } 50% { transform: translateX(0) scale(1.1); } 75% { transform: translateX(6px) scale(.9); } 92% { transform: scaleY(.15); } }
+  .m-runner { animation: run-curve 6s ease-in-out infinite; }
+  @keyframes run-curve { 0% { offset-distance: 0%; } 85%, 100% { offset-distance: 100%; } }
+  .m-waves path { animation: wave 4s linear infinite; animation-duration: calc(4s + var(--i) * 1.4s); }
+  @keyframes wave { to { transform: translateX(60px); } }
+}
+.motif:has(.m-waves) { overflow: hidden; border-radius: 0 10px 0 0; }
