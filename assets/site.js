@@ -43,7 +43,7 @@
       next.focus(); next.click();
     });
   });
-  applyTheme(root.dataset.theme || 'midnight', false);
+  applyTheme(root.dataset.theme || 'paper', false);
   themeBtns.forEach(b => { b.tabIndex = b.getAttribute('aria-checked') === 'true' ? 0 : -1; });
   themeListeners.push(() => themeBtns.forEach(b => { b.tabIndex = b.getAttribute('aria-checked') === 'true' ? 0 : -1; }));
 
