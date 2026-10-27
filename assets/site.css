@@ -745,3 +745,9 @@ table { border-collapse: collapse; width: 100%; }
   .name, .name .ch { color: #000; background: none; -webkit-text-fill-color: #000; }
   a { text-decoration: none; }
 }
+
+/* Screenshot opens the live site */
+.frame-link { display: block; width: 100%; height: 100%; cursor: pointer; }
+.frame-link:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+a.frame-url { color: inherit; text-decoration: none; }
+a.frame-url:hover { text-decoration: underline; text-underline-offset: 3px; }
